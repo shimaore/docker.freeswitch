@@ -10,5 +10,9 @@ RUN cd freeswitch.git && sh bootstrap.sh
 RUN cd freeswitch.git && ./configure
 RUN cd freeswitch.git && make
 RUN cd freeswitch.git && make install
+RUN cd freeswitch.git && git log > /usr/local/freeswitch/.git.log
+RUN apt-get purge -y pkg-config git build-essential automake autoconf libtool wget libncurses5-dev libssl-dev libpcre3-dev libcurl4-openssl-dev libldns-dev libedit-dev libsqlite3-dev uuid-dev
 # Cleanup, only keep /bin, /lib and /mod
 RUN echo 'rm -rf freeswitch.git /usr/local/freeswitch/{conf,scripts,db,htdocs,recordings,run,log,grammar}' | /bin/bash
+RUN apt-get install -y libncurses5 libssl1.0.0 libpcre3 libcurl3 libldns1 libedit2 libsqlite3-0 libuuid1
+RUN apt-get autoremove -y
