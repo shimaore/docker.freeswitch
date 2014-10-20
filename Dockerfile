@@ -1,10 +1,26 @@
 FROM shimaore/debian
 MAINTAINER Stéphane Alnet <stephane@shimaore.net>
 
-RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get install -y --no-install-recommends git build-essential automake autoconf libtool wget python zlib1g-dev libjpeg-dev libncurses5-dev libssl-dev libpcre3-dev libcurl4-openssl-dev libldns-dev libedit-dev libspeexdsp-dev  libspeexdsp-dev libsqlite3-dev
-RUN apt-get install -y --no-install-recommends pkg-config uuid-dev
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  autoconf \
+  automake \
+  build-essential \
+  git \
+  libcurl4-openssl-dev \
+  libedit-dev \
+  libjpeg-dev \
+  libldns-dev \
+  libncurses5-dev \
+  libpcre3-dev \
+  libspeexdsp-dev \
+  libsqlite3-dev \
+  libssl-dev \
+  libtool \
+  pkg-config \
+  python \
+  uuid-dev \
+  wget \
+  zlib1g-dev
 
 # Build
 RUN useradd -m freeswitch
@@ -26,12 +42,36 @@ WORKDIR ..
 RUN rm -rf freeswitch.git
 # Cleanup build dependencies
 USER root
-RUN apt-get purge -y pkg-config git build-essential automake autoconf libtool wget libncurses5-dev libssl-dev libpcre3-dev libcurl4-openssl-dev libldns-dev libedit-dev libsqlite3-dev uuid-dev
+RUN apt-get purge -y \
+  autoconf \
+  automake \
+  build-essential \
+  git \
+  libcurl4-openssl-dev \
+  libedit-dev \
+  libldns-dev \
+  libncurses5-dev \
+  libpcre3-dev \
+  libsqlite3-dev \
+  libssl-dev \
+  libtool \
+  pkg-config \
+  uuid-dev \
+  wget
+
 # Cleanup, only keep /bin, /lib and /mod
 RUN echo 'rm -rf /usr/local/freeswitch/{conf,scripts,htdocs,grammar}' | /bin/bash
 RUN echo 'chown -R freeswitch.freeswitch /usr/local/freeswitch/{run,log,db,recordings}' | /bin/bash
 # Install dependencies
-RUN apt-get install -y --no-install-recommends libncurses5 libssl1.0.0 libpcre3 libcurl3 libldns1 libedit2 libsqlite3-0 libuuid1
+RUN apt-get install -y --no-install-recommends \
+    libcurl3 \
+    libedit2 \
+    libldns1 \
+    libncurses5 \
+    libpcre3 \
+    libsqlite3-0 \
+    libssl1.0.0 \
+    libuuid1
 RUN apt-get autoremove -y
 
 USER freeswitch
