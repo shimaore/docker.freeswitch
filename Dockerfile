@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libsqlite3-dev \
   libssl-dev \
   libtool \
+  libtool-bin \
   pkg-config \
   python \
   uuid-dev \
@@ -26,20 +27,29 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN useradd -m freeswitch
 USER freeswitch
 WORKDIR /home/freeswitch
-RUN git clone -b production-v1.4 git://shimaore.net/git/freeswitch.git freeswitch.git
+# RUN git clone -b production-v1.4 git://shimaore.net/git/freeswitch.git freeswitch.git
+# Use e.g. with a git daemon --verbose --listen=172.17.42.1 --port=9418 --base-path=`pwd`
+RUN git clone -b production-v1.4 git://172.17.42.1:9418/ freeswitch.git
 WORKDIR freeswitch.git
 RUN sh bootstrap.sh
-RUN ./configure --prefix=/usr/local/freeswitch
+RUN ./configure --prefix=/opt/freeswitch
 RUN make
+
 # Install
 USER root
+RUN mkdir -p /opt/freeswitch
+RUN chown -R freeswitch.freeswitch /opt/freeswitch
+USER freeswitch
 RUN make install
-RUN git log > /usr/local/freeswitch/.git.log
+RUN git log > /opt/freeswitch/.git.log
 
 # Cleanup source
-USER freeswitch
 WORKDIR ..
 RUN rm -rf freeswitch.git
+
+# Cleanup, only keep /bin, /lib and /mod
+RUN echo 'rm -rf /opt/freeswitch/{conf,scripts,htdocs,grammar}' | /bin/bash
+
 # Cleanup build dependencies
 USER root
 RUN apt-get purge -y \
@@ -59,9 +69,6 @@ RUN apt-get purge -y \
   uuid-dev \
   wget
 
-# Cleanup, only keep /bin, /lib and /mod
-RUN echo 'rm -rf /usr/local/freeswitch/{conf,scripts,htdocs,grammar}' | /bin/bash
-RUN echo 'chown -R freeswitch.freeswitch /usr/local/freeswitch/{run,log,db,recordings}' | /bin/bash
 # Install dependencies
 RUN apt-get install -y --no-install-recommends \
     libcurl3 \
