@@ -80,5 +80,6 @@ RUN apt-get install -y --no-install-recommends \
     libssl1.0.0 \
     libuuid1
 RUN apt-get autoremove -y
+RUN apt-get clean
 
 USER freeswitch
