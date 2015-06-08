@@ -31,6 +31,8 @@ WORKDIR /home/freeswitch
 # Use e.g. with a git daemon --verbose --listen=172.17.42.1 --port=9418 --base-path=`pwd`
 RUN git clone -b production-v1.4 git://172.17.42.1:9418/ freeswitch.git
 WORKDIR freeswitch.git
+# Lock each of our release to a specific codeset.
+RUN git checkout 036f0761ace3720730dc18f90f8a428f5e24c8a6
 RUN sh bootstrap.sh
 RUN ./configure --prefix=/opt/freeswitch
 RUN make
