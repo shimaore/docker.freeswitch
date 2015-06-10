@@ -7,5 +7,5 @@ image:
 tests:
 	cd test && for t in ./*.sh; do $$t; done
 
-push: image tests
+push: image
 	docker push ${NAME}:${TAG}
