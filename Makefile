@@ -9,3 +9,5 @@ tests:
 
 push: image
 	docker push ${NAME}:${TAG}
+	docker tag -f ${NAME}:${TAG} ${REGISTRY}/${NAME}:${TAG}
+	docker push ${REGISTRY}/${NAME}:${TAG}
