@@ -1,4 +1,4 @@
-NAME=shimaore/freeswitch
+NAME=shimaore/`jq -r .name[7:] package.json`
 TAG=`jq -r .version package.json`
 
 image:
