@@ -44,6 +44,19 @@ USER freeswitch
 RUN make install
 RUN git log > /opt/freeswitch/.git.log
 
+# Install sounds en-US and MoH
+RUN make cd-sounds-install cd-moh-install
+
+# Install sounds fr-FR
+USER root
+RUN apt-get install -y --no-install-recommends \
+  sox
+USER freeswitch
+RUN git clone https://gitlab.k-net.fr/shimaore/fr-sounds.git fr-sounds.git
+WORKDIR fr-sounds.git
+RUN ./build.sh && mv fr ../sounds/
+WORKDIR ..
+
 # Cleanup source
 WORKDIR ..
 RUN rm -rf freeswitch.git
@@ -67,6 +80,7 @@ RUN apt-get purge -y \
   libssl-dev \
   libtool \
   pkg-config \
+  sox \
   uuid-dev \
   wget
 
