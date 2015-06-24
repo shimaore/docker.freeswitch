@@ -54,7 +54,7 @@ RUN apt-get install -y --no-install-recommends \
 USER freeswitch
 RUN git clone https://gitlab.k-net.fr/shimaore/fr-sounds.git fr-sounds.git
 WORKDIR fr-sounds.git
-RUN ./build.sh && mv fr ../sounds/
+RUN ./build.sh && mv fr /opt/freeswitch/sounds/
 WORKDIR ..
 
 # Cleanup source
