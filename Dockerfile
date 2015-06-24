@@ -50,6 +50,7 @@ RUN make cd-sounds-install cd-moh-install
 # Install sounds fr-FR
 USER root
 RUN apt-get install -y --no-install-recommends \
+  jq \
   sox
 USER freeswitch
 RUN git clone https://gitlab.k-net.fr/shimaore/fr-sounds.git fr-sounds.git
@@ -71,6 +72,7 @@ RUN apt-get purge -y \
   automake \
   build-essential \
   git \
+  jq \
   libcurl4-openssl-dev \
   libedit-dev \
   libldns-dev \
