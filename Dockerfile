@@ -1,4 +1,4 @@
-FROM shimaore/debian:2.0.0
+FROM shimaore/debian:2.0.4
 MAINTAINER Stéphane Alnet <stephane@shimaore.net>
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -31,7 +31,7 @@ WORKDIR /home/freeswitch
 RUN git clone -b production-v1.4 https://gitlab.k-net.fr/shimaore/freeswitch.git freeswitch.git
 WORKDIR freeswitch.git
 # Lock each of our release to a specific codeset.
-RUN git checkout 036f0761ace3720730dc18f90f8a428f5e24c8a6
+RUN git checkout e24925028bfa01e1ab07e3623107416e2c19b4d0
 RUN sh bootstrap.sh
 RUN ./configure --prefix=/opt/freeswitch
 RUN make
