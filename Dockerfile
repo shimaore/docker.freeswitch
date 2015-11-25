@@ -28,10 +28,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN useradd -m freeswitch
 USER freeswitch
 WORKDIR /home/freeswitch
-RUN git clone -b production-v1.4 https://gitlab.k-net.fr/shimaore/freeswitch.git freeswitch.git
+RUN git clone -b v1.6 https://stash.freeswitch.org/scm/fs/freeswitch.git freeswitch.git
 WORKDIR freeswitch.git
 # Lock each of our release to a specific codeset.
-RUN git checkout e24925028bfa01e1ab07e3623107416e2c19b4d0
+RUN git checkout 70b8c177639a980c0ef12f2f826cdcc3b5a9c8a2
+COPY modules.conf.in build/modules.conf.in
 RUN sh bootstrap.sh
 RUN ./configure --prefix=/opt/freeswitch
 RUN make
