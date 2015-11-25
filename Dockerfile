@@ -55,7 +55,9 @@ RUN apt-get install -y --no-install-recommends \
   jq \
   sox
 USER freeswitch
-RUN git clone https://gitlab.k-net.fr/shimaore/fr-sounds.git fr-sounds.git
+RUN git clone https://github.com/shimaore/fr-sounds.git fr-sounds.git
+# Lock each of our release to a specific codeset.
+RUN git checkout 02a7d9dcfa9f0d3b0041da0d0ecd3c67d0380679
 WORKDIR fr-sounds.git
 RUN ./build.sh && mv fr /opt/freeswitch/sounds/
 WORKDIR ..
