@@ -77,29 +77,35 @@ RUN apt-get purge -y \
   jq \
   libcurl4-openssl-dev \
   libedit-dev \
+  libjpeg-dev \
   libldns-dev \
   libncurses5-dev \
   libpcre3-dev \
   libshout3-dev \
+  libspeexdsp-dev \
   libsqlite3-dev \
   libssl-dev \
   libtool \
   pkg-config \
   sox \
   uuid-dev \
-  wget
+  wget \
+  zlib1g-dev
 
 # Install dependencies
 RUN apt-get install -y --no-install-recommends \
     libcurl3 \
     libedit2 \
+    libjpeg62-turbo \
     libldns1 \
     libncurses5 \
     libpcre3 \
     libshout3 \
+    libspeexdsp1 \
     libsqlite3-0 \
     libssl1.0.0 \
-    libuuid1
+    libuuid1 \
+    zlib1g
 RUN apt-get autoremove -y
 RUN apt-get clean
 
