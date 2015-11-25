@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libldns-dev \
   libncurses5-dev \
   libpcre3-dev \
+  libshout3-dev \
   libspeexdsp-dev \
   libsqlite3-dev \
   libssl-dev \
@@ -79,6 +80,7 @@ RUN apt-get purge -y \
   libldns-dev \
   libncurses5-dev \
   libpcre3-dev \
+  libshout3-dev \
   libsqlite3-dev \
   libssl-dev \
   libtool \
@@ -94,6 +96,7 @@ RUN apt-get install -y --no-install-recommends \
     libldns1 \
     libncurses5 \
     libpcre3 \
+    libshout3 \
     libsqlite3-0 \
     libssl1.0.0 \
     libuuid1
