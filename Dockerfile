@@ -62,7 +62,7 @@ RUN git clone https://github.com/shimaore/fr-sounds.git fr-sounds.git
 WORKDIR fr-sounds.git
 # Lock each of our release to a specific codeset.
 RUN git checkout 02a7d9dcfa9f0d3b0041da0d0ecd3c67d0380679
-RUN ./build.sh && mv fr /opt/freeswitch/sounds/
+RUN ./build.sh && mv fr /opt/freeswitch/share/freeswitch/sounds/
 WORKDIR ..
 
 # Cleanup source
