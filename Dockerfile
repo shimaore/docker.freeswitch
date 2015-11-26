@@ -11,9 +11,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libedit-dev \
   libjpeg-dev \
   libldns-dev \
+  libmp3lame-dev \
+  libmpg123-dev \
   libncurses5-dev \
   libpcre3-dev \
   libshout3-dev \
+  libsndfile-dev \
   libspeexdsp-dev \
   libsqlite3-dev \
   libssl-dev \
@@ -64,9 +67,12 @@ RUN apt-get purge -y \
   libedit-dev \
   libjpeg-dev \
   libldns-dev \
+  libmp3lame-dev \
+  libmpg123-dev \
   libncurses5-dev \
   libpcre3-dev \
   libshout3-dev \
+  libsndfile-dev \
   libspeexdsp-dev \
   libsqlite3-dev \
   libssl-dev \
@@ -82,9 +88,12 @@ RUN apt-get install -y --no-install-recommends \
     libedit2 \
     libjpeg62-turbo \
     libldns1 \
+    libmp3lame0 \
+    libmpg123-0 \
     libncurses5 \
     libpcre3 \
     libshout3 \
+    libsndfile1 \
     libspeexdsp1 \
     libsqlite3-0 \
     libssl1.0.0 \
