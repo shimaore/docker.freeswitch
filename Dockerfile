@@ -11,9 +11,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libedit-dev \
   libjpeg-dev \
   libldns-dev \
+  libmp3lame-dev \
+  libmpg123-dev \
   libncurses5-dev \
   libpcre3-dev \
   libshout3-dev \
+  libsndfile-dev \
   libspeexdsp-dev \
   libsqlite3-dev \
   libssl-dev \
@@ -56,9 +59,9 @@ RUN apt-get install -y --no-install-recommends \
   sox
 USER freeswitch
 RUN git clone https://github.com/shimaore/fr-sounds.git fr-sounds.git
+WORKDIR fr-sounds.git
 # Lock each of our release to a specific codeset.
 RUN git checkout 02a7d9dcfa9f0d3b0041da0d0ecd3c67d0380679
-WORKDIR fr-sounds.git
 RUN ./build.sh && mv fr /opt/freeswitch/sounds/
 WORKDIR ..
 
@@ -81,9 +84,12 @@ RUN apt-get purge -y \
   libedit-dev \
   libjpeg-dev \
   libldns-dev \
+  libmp3lame-dev \
+  libmpg123-dev \
   libncurses5-dev \
   libpcre3-dev \
   libshout3-dev \
+  libsndfile-dev \
   libspeexdsp-dev \
   libsqlite3-dev \
   libssl-dev \
@@ -100,9 +106,12 @@ RUN apt-get install -y --no-install-recommends \
     libedit2 \
     libjpeg62-turbo \
     libldns1 \
+    libmp3lame0 \
+    libmpg123-0 \
     libncurses5 \
     libpcre3 \
     libshout3 \
+    libsndfile1 \
     libspeexdsp1 \
     libsqlite3-0 \
     libssl1.0.0 \
