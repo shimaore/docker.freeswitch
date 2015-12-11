@@ -65,6 +65,8 @@ RUN apt-get purge -y \
   autoconf \
   automake \
   build-essential \
+  cpp-5 \
+  gcc-5 \
   git \
   jq \
   libcurl4-openssl-dev \
