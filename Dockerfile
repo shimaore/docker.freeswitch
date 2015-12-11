@@ -56,6 +56,8 @@ RUN apt-get purge -y \
   autoconf \
   automake \
   build-essential \
+  cpp-5 \
+  gcc-5 \
   git \
   libcurl4-openssl-dev \
   libedit-dev \
