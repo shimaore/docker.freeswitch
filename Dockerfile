@@ -26,35 +26,29 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   python \
   uuid-dev \
   wget \
-  zlib1g-dev
+  zlib1g-dev \
+  && \
+  useradd -m freeswitch && \
+  mkdir -p /opt/freeswitch && \
+  chown -R freeswitch.freeswitch /opt/freeswitch
 
-# Build
-RUN useradd -m freeswitch
 USER freeswitch
+COPY modules.conf.in /tmp/modules.conf.in
 WORKDIR /home/freeswitch
-RUN git clone -b v1.6 https://stash.freeswitch.org/scm/fs/freeswitch.git freeswitch.git
-WORKDIR freeswitch.git
-# Lock each of our release to a specific codeset.
-RUN git checkout 70b8c177639a980c0ef12f2f826cdcc3b5a9c8a2
-COPY modules.conf.in build/modules.conf.in
-RUN sh bootstrap.sh
-RUN ./configure --prefix=/opt/freeswitch
-RUN make
-
-# Install
-USER root
-RUN mkdir -p /opt/freeswitch
-RUN chown -R freeswitch.freeswitch /opt/freeswitch
-USER freeswitch
-RUN make install
-RUN git log > /opt/freeswitch/.git.log
-
-# Cleanup source
-WORKDIR ..
-RUN rm -rf freeswitch.git
-
-# Cleanup, only keep /bin, /lib and /mod
-RUN echo 'rm -rf /opt/freeswitch/{conf,scripts,htdocs,grammar}' | /bin/bash
+RUN \
+  git clone -b v1.6 https://stash.freeswitch.org/scm/fs/freeswitch.git freeswitch.git && \
+  cd freeswitch.git && \
+  git checkout 70b8c177639a980c0ef12f2f826cdcc3b5a9c8a2 && \
+  cp /tmp/modules.conf.in build/modules.conf.in && \
+  sh bootstrap.sh && \
+  ./configure --prefix=/opt/freeswitch && \
+  make && \
+  make install && \
+  git log > /opt/freeswitch/.git.log && \
+  cd .. && \
+  rm -rf freeswitch.git && \
+  # Cleanup, only keep /bin, /lib and /mod
+  echo 'rm -rf /opt/freeswitch/{conf,scripts,htdocs,grammar}' | /bin/bash
 
 # Cleanup build dependencies
 USER root
@@ -80,10 +74,9 @@ RUN apt-get purge -y \
   pkg-config \
   uuid-dev \
   wget \
-  zlib1g-dev
-
-# Install dependencies
-RUN apt-get install -y --no-install-recommends \
+  zlib1g-dev \
+  && \
+  apt-get install -y --no-install-recommends \
     libcurl3 \
     libedit2 \
     libjpeg62-turbo \
@@ -98,8 +91,8 @@ RUN apt-get install -y --no-install-recommends \
     libsqlite3-0 \
     libssl1.0.0 \
     libuuid1 \
-    zlib1g
-RUN apt-get autoremove -y
-RUN apt-get clean
+    zlib1g \
+  && \
+  apt-get autoremove -y && apt-get clean
 
 USER freeswitch
