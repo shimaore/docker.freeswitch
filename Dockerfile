@@ -47,7 +47,7 @@ RUN \
   make && \
   make install && \
   # make cd-sounds-install cd-moh-install && \
-  git log > /opt/freeswitch/.git.log && \
+  git log | gzip > /opt/freeswitch/.git.log.gz && \
   cd .. && \
   rm -rf freeswitch.git
 RUN \
