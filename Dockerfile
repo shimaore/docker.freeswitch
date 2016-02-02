@@ -46,7 +46,7 @@ RUN \
   ./configure --prefix=/opt/freeswitch && \
   make && \
   make install && \
-  # make cd-sounds-install cd-moh-install && \
+  make sounds-en-us-callie-8000-install && \
   git log | gzip > /opt/freeswitch/.git.log.gz && \
   cd .. && \
   rm -rf freeswitch.git
