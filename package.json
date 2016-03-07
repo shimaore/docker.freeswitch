@@ -1,5 +1,6 @@
 {
   "name": "docker.freeswitch-with-sounds",
+  "docker_name": "shimaore/freeswitch-with-sounds",
   "version": "2.3.2",
   "description": "Build FreeSwitch for CCNQ4.",
   "author": "Stéphane Alnet <stephane@shimaore.net> (http://stephane.shimaore.net/)",
