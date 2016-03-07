@@ -49,8 +49,7 @@ RUN \
   make sounds-en-us-callie-8000-install && \
   git log | gzip > /opt/freeswitch/.git.log.gz && \
   cd .. && \
-  rm -rf freeswitch.git
-RUN \
+  rm -rf freeswitch.git && \
   git clone https://github.com/shimaore/fr-sounds.git fr-sounds.git && \
   cd fr-sounds.git && \
   git checkout 02a7d9dcfa9f0d3b0041da0d0ecd3c67d0380679 && \
