@@ -91,7 +91,7 @@ RUN apt-get purge -y \
     libsndfile1 \
     libspeexdsp1 \
     libsqlite3-0 \
-    libssl1.0.0 \
+    libssl1.0.2 \
     libuuid1 \
     zlib1g \
   && \
