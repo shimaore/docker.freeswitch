@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libssl-dev \
   libtool \
   libtool-bin \
+  nasm \
   pkg-config \
   python \
   uuid-dev \
@@ -73,6 +74,7 @@ RUN apt-get purge -y \
   libsqlite3-dev \
   libssl-dev \
   libtool \
+  nasm \
   pkg-config \
   uuid-dev \
   wget \
