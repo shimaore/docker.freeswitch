@@ -38,7 +38,7 @@ WORKDIR /home/freeswitch
 RUN \
   git clone -b v1.6 https://stash.freeswitch.org/scm/fs/freeswitch.git freeswitch.git && \
   cd freeswitch.git && \
-  git checkout v1.6.7 && \
+  git checkout f0c3870be396b759fdff32c2fa9367abb0ee07d1 && \
   cp /tmp/modules.conf.in build/modules.conf.in && \
   sh bootstrap.sh && \
   ./configure --prefix=/opt/freeswitch && \
