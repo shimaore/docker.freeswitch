@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libssl-dev \
   libtool \
   libtool-bin \
+  nasm \
   pkg-config \
   python \
   sox \
@@ -40,7 +41,7 @@ WORKDIR /home/freeswitch
 RUN \
   git clone -b v1.6 https://stash.freeswitch.org/scm/fs/freeswitch.git freeswitch.git && \
   cd freeswitch.git && \
-  git checkout d2d0b3283ae393b15e2476159db50386300eea69 && \
+  git checkout f0c3870be396b759fdff32c2fa9367abb0ee07d1 && \
   cp /tmp/modules.conf.in build/modules.conf.in && \
   sh bootstrap.sh && \
   ./configure --prefix=/opt/freeswitch && \
@@ -85,6 +86,7 @@ RUN apt-get purge -y \
   libsqlite3-dev \
   libssl-dev \
   libtool \
+  nasm \
   pkg-config \
   sox \
   uuid-dev \
@@ -104,7 +106,7 @@ RUN apt-get purge -y \
     libsndfile1 \
     libspeexdsp1 \
     libsqlite3-0 \
-    libssl1.0.0 \
+    libssl1.0.2 \
     libuuid1 \
     zlib1g \
   && \
