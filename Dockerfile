@@ -1,4 +1,4 @@
-FROM shimaore/debian:2.0.7
+FROM shimaore/debian:2.0.8
 MAINTAINER Stéphane Alnet <stephane@shimaore.net>
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
