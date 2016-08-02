@@ -1,4 +1,4 @@
-FROM shimaore/debian:2.0.8
+FROM shimaore/debian:2.0.9
 MAINTAINER Stéphane Alnet <stephane@shimaore.net>
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -41,7 +41,7 @@ WORKDIR /home/freeswitch
 RUN \
   git clone -b v1.6 https://stash.freeswitch.org/scm/fs/freeswitch.git freeswitch.git && \
   cd freeswitch.git && \
-  git checkout 99de0ad50225ee665a95d0ea1dc27bec4d015a48 && \
+  git checkout d57487072019ca11913f22068653df7ab58fbd9d && \
   cp /tmp/modules.conf.in build/modules.conf.in && \
   sh bootstrap.sh && \
   ./configure --prefix=/opt/freeswitch && \
