@@ -1,102 +1,119 @@
-FROM shimaore/debian:2.0.9
+FROM shimaore/debian:2.0.10
 MAINTAINER Stéphane Alnet <stephane@shimaore.net>
 
+COPY modules.conf.in /tmp/modules.conf.in
+COPY build.sh /tmp/build.sh
+
+# This version tries to be modelled after FreeSwitch's own
+#  debian/bootstrap.sh (section on `Build-Depends`)
+# especially by re-using the lists of `Build-Depends from
+#  debian/control-modules
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
+
+# bootstrapping
   autoconf \
   automake \
-  build-essential \
-  ca-certificates \
-  git \
-  libcurl4-openssl-dev \
-  libedit-dev \
-  libjpeg-dev \
-  libldns-dev \
-  libmp3lame-dev \
-  libmpg123-dev \
-  libncurses5-dev \
-  libpcre3-dev \
-  libshout3-dev \
-  libsndfile-dev \
-  libspeexdsp-dev \
-  libsqlite3-dev \
-  libssl-dev \
   libtool \
   libtool-bin \
-  nasm \
-  pkg-config \
-  python \
-  uuid-dev \
-  wget \
-  zlib1g-dev \
-  && \
-  useradd -m freeswitch && \
-  mkdir -p /opt/freeswitch && \
-  chown -R freeswitch.freeswitch /opt/freeswitch
 
-USER freeswitch
-COPY modules.conf.in /tmp/modules.conf.in
-WORKDIR /home/freeswitch
-RUN \
-  git clone -b v1.6 https://stash.freeswitch.org/scm/fs/freeswitch.git freeswitch.git && \
-  cd freeswitch.git && \
-  git checkout d57487072019ca11913f22068653df7ab58fbd9d && \
-  cp /tmp/modules.conf.in build/modules.conf.in && \
-  sh bootstrap.sh && \
-  ./configure --prefix=/opt/freeswitch && \
-  make && \
-  make install && \
-  git log | gzip > /opt/freeswitch/.git.log.gz && \
-  cd .. && \
-  rm -rf freeswitch.git && \
-  # Cleanup, only keep /bin, /lib and /mod
-  echo 'rm -rf /opt/freeswitch/{conf,scripts,htdocs,grammar}' | /bin/bash
-
-# Cleanup build dependencies
-USER root
-RUN apt-get purge -y \
-  autoconf \
-  automake \
-  build-essential \
-  cpp-5 \
-  gcc-5 \
+# clone
+  ca-certificates \
   git \
+
+# build
+  build-essential \
+
+# core
   libcurl4-openssl-dev \
   libedit-dev \
   libjpeg-dev \
-  libldns-dev \
-  libmp3lame-dev \
-  libmpg123-dev \
-  libncurses5-dev \
   libpcre3-dev \
-  libshout3-dev \
-  libsndfile-dev \
   libspeexdsp-dev \
   libsqlite3-dev \
   libssl-dev \
-  libtool \
-  nasm \
-  pkg-config \
   uuid-dev \
-  wget \
   zlib1g-dev \
+
+  # wget \
+  # pkg-config \
+  yasm \
+
+# mod_av
+    # libavformat-dev libswscale-dev \
+# mod_cv
+    # libopencv-dev \
+# mod_mp4
+    libmp4v2-dev \
+# mod_ilbc
+    # libilbc-dev \  # NOT in Debian
+# mod_opus
+    libopus-dev \
+# mod_silk
+    # libsilk-dev \  # NOT in Debian
+# mod_siren
+    # libg7221-dev \ # NOT in Debian
+# mod_shout
+    libogg-dev libvorbis-dev libmp3lame-dev libshout3-dev libmpg123-dev \
+# mod_sndfile
+    libsndfile1-dev libflac-dev libogg-dev libvorbis-dev \
+
   && \
-  apt-get install -y --no-install-recommends \
-    libcurl3 \
-    libedit2 \
-    libjpeg62-turbo \
-    libldns1 \
-    libmp3lame0 \
-    libmpg123-0 \
-    libncurses5 \
-    libpcre3 \
-    libshout3 \
-    libsndfile1 \
-    libspeexdsp1 \
-    libsqlite3-0 \
-    libssl1.0.2 \
-    libuuid1 \
-    zlib1g \
+
+  useradd -m freeswitch && \
+  mkdir -p /opt/freeswitch && \
+  chown -R freeswitch.freeswitch /opt/freeswitch && \
+
+  chmod +x /tmp/build.sh && \
+  su -c /tmp/build.sh freeswitch && \
+
+  rm -f /tmp/build.sh && \
+
+# Cleanup build dependencies
+  apt-get purge -y \
+
+# bootstrapping
+    autoconf \
+    automake \
+    libtool \
+    libtool-bin \
+
+# clone
+    ca-certificates \
+    git \
+
+# build
+    build-essential \
+    cpp-5 \
+    gcc-5 \
+
+# core
+    # pkg-config \
+    # wget \
+    yasm \
+
+  # && \
+  # apt-get install -y --no-install-recommends \
+  #   libcurl3 \
+  #   libedit2 \
+  #   libjpeg62-turbo \
+  #   libldns1 \
+  #   libmp3lame0 \
+  #   libmpg123-0 \
+  #   libmp4v2-2 \
+  #   libncurses5 \
+  #   libopus0 \
+  #   libpcre3 \
+  #   libshout3 \
+  #   libsndfile1 \
+  #   libspeexdsp1 \
+  #   libsqlite3-0 \
+  #   libssl1.0.2 \
+  #   libuuid1 \
+  #   zlib1g \
   && \
-  apt-get autoremove -y && apt-get clean
+  apt-get autoremove -y && apt-get clean && \
+  find /usr/share/doc /var/lib/apt/lists -type f -delete && \
+  echo Done
 
 USER freeswitch
