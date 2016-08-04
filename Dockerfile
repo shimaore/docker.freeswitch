@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   git \
 
 # sounds
+  curl \
   jq \
   sox \
 
@@ -87,6 +88,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
 
 # sounds
+    curl \
     jq \
     sox \
 
