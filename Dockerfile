@@ -35,8 +35,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   uuid-dev \
   zlib1g-dev \
 
-  # wget \
-  # pkg-config \
   yasm \
 
 # mod_av
@@ -88,29 +86,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc-5 \
 
 # core
-    # pkg-config \
-    # wget \
     yasm \
 
-  # && \
-  # apt-get install -y --no-install-recommends \
-  #   libcurl3 \
-  #   libedit2 \
-  #   libjpeg62-turbo \
-  #   libldns1 \
-  #   libmp3lame0 \
-  #   libmpg123-0 \
-  #   libmp4v2-2 \
-  #   libncurses5 \
-  #   libopus0 \
-  #   libpcre3 \
-  #   libshout3 \
-  #   libsndfile1 \
-  #   libspeexdsp1 \
-  #   libsqlite3-0 \
-  #   libssl1.0.2 \
-  #   libuuid1 \
-  #   zlib1g \
   && \
   apt-get autoremove -y && apt-get clean && \
   find /usr/share/doc /var/lib/apt/lists -type f -delete && \
