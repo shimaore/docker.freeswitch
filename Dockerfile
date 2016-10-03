@@ -1,4 +1,4 @@
-FROM shimaore/debian:2.0.10
+FROM shimaore/debian:2.0.11
 MAINTAINER Stéphane Alnet <stephane@shimaore.net>
 
 COPY modules.conf.in /tmp/modules.conf.in
