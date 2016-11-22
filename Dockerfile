@@ -33,6 +33,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libcurl4-openssl-dev \
   libedit-dev \
   libjpeg-dev \
+  libncurses5-dev \
   libpcre3-dev \
   libspeexdsp-dev \
   libsqlite3-dev \
