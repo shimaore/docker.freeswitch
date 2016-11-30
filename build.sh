@@ -3,12 +3,12 @@ set -e
 
 echo 'Starting build.'
 cd /home/freeswitch
-git clone -b master https://stash.freeswitch.org/scm/fs/freeswitch.git freeswitch.git
+git clone -b master https://freeswitch.org/stash/scm/~stephalnet/freeswitch.git freeswitch.git
 cd freeswitch.git
-git show
+git checkout 16f198ca15b673beb8b8934ac958b698017108c7
 cp /tmp/modules.conf.in build/modules.conf.in
 sh bootstrap.sh -j
-./configure --prefix=/opt/freeswitch
+./configure --prefix=/opt/freeswitch --disable-srtp
 make
 make install
 git log | gzip > /opt/freeswitch/.git.log.gz
