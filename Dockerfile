@@ -1,9 +1,6 @@
 FROM shimaore/debian:2.0.12
 MAINTAINER Stéphane Alnet <stephane@shimaore.net>
 
-COPY modules.conf.in /tmp/modules.conf.in
-COPY build.sh /tmp/build.sh
-
 # This version tries to be modelled after FreeSwitch's own
 #  debian/bootstrap.sh (section on `Build-Depends`)
 # especially by re-using the lists of `Build-Depends from
@@ -55,9 +52,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # mod_shout
     libogg-dev libvorbis-dev libmp3lame-dev libshout3-dev libmpg123-dev \
 # mod_sndfile
-    libsndfile1-dev libflac-dev libogg-dev libvorbis-dev \
+    libsndfile1-dev libflac-dev libogg-dev libvorbis-dev
 
-  && \
+COPY modules.conf.in /tmp/modules.conf.in
+COPY build.sh /tmp/build.sh
+
+RUN \
 
   useradd -m freeswitch && \
   mkdir -p /opt/freeswitch && \

@@ -1,7 +1,7 @@
 {
   "name": "docker.freeswitch",
   "docker_name": "shimaore/freeswitch",
-  "version": "master",
+  "version": "FS-9785",
   "description": "Build FreeSwitch for CCNQ4.",
   "author": "Stéphane Alnet <stephane@shimaore.net> (http://stephane.shimaore.net/)",
   "license": "Unlicense (http://unlicense.org/)",
