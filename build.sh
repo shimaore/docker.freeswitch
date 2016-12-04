@@ -8,7 +8,7 @@ cd freeswitch.git
 git show
 cp /tmp/modules.conf.in build/modules.conf.in
 sh bootstrap.sh -j
-./configure --prefix=/opt/freeswitch
+./configure --prefix=/opt/freeswitch --disable-srtp
 make
 make install
 git log | gzip > /opt/freeswitch/.git.log.gz
