@@ -3,11 +3,9 @@ set -e
 
 echo 'Starting build.'
 cd /home/freeswitch
-git clone -b FS-9776 https://freeswitch.org/stash/scm/~stephalnet/freeswitch.git freeswitch.git
+git clone -b test-FS-9776 https://freeswitch.org/stash/scm/~stephalnet/freeswitch.git freeswitch.git
 cd freeswitch.git
-  git config --global user.email "stephane@shimaore.net"
-  git config --global user.name "shimaore"
-git merge origin/FS-9785
+git checkout d0acd9b091ecdcf3b8c1d91cf5bf68c0c754a9e1
 cp /tmp/modules.conf.in build/modules.conf.in
 sh bootstrap.sh -j
 ./configure --prefix=/opt/freeswitch
