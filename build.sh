@@ -3,7 +3,7 @@ set -e
 
 echo 'Starting build.'
 cd /home/freeswitch
-git clone -b test-FS-9776 https://freeswitch.org/stash/scm/~stephalnet/freeswitch.git freeswitch.git
+git clone -b test-FS-9776 https://gitlab.k-net.fr/shimaore/freeswitch.git freeswitch.git
 cd freeswitch.git
 git checkout 4cab46834c643767a06a22230bf3afc180af2acc
 cp /tmp/modules.conf.in build/modules.conf.in
