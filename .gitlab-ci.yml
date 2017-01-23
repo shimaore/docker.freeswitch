@@ -1,0 +1,27 @@
+build:
+  stage: build
+  tags:
+  - shell
+  only:
+  - build-FS-9776.with-sounds
+  script:
+  - docker build -t ${CI_REGISTRY_IMAGE}:${PROJECT_TAG} .
+
+test:
+  stage: test
+  tags:
+  - shell
+  only:
+  - build-FS-9776.with-sounds
+  script:
+  - docker run --rm ${CI_REGISTRY_IMAGE}:${PROJECT_TAG} /bin/bash -c 'npm test'
+
+push:
+  stage: deploy
+  only:
+  - build-FS-9776.with-sounds
+  script:
+  - docker push ${CI_REGISTRY_IMAGE}:${PROJECT_TAG}
+
+variables:
+  PROJECT_TAG: "4.2.0"
