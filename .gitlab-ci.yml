@@ -9,6 +9,8 @@ build:
 
 push:
   stage: deploy
+  tags:
+  - shell
   only:
   - build-FS-9776
   script:
