@@ -1,0 +1,27 @@
+build:
+  stage: build
+  tags:
+  - shell
+  only:
+  - master
+  script:
+  - docker build -t ${CI_REGISTRY_IMAGE}:${PROJECT_TAG} .
+
+test:
+  stage: test
+  tags:
+  - shell
+  only:
+  - master
+  script:
+  - docker run --rm ${CI_REGISTRY_IMAGE}:${PROJECT_TAG} /bin/bash -c 'npm test'
+
+push:
+  stage: deploy
+  only:
+  - master
+  script:
+  - docker push ${CI_REGISTRY_IMAGE}:${PROJECT_TAG}
+
+variables:
+  PROJECT_TAG: ""
