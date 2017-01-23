@@ -7,15 +7,6 @@ build:
   script:
   - docker build -t ${CI_REGISTRY_IMAGE}:${PROJECT_TAG} .
 
-test:
-  stage: test
-  tags:
-  - shell
-  only:
-  - build-FS-9776.with-sounds
-  script:
-  - docker run --rm ${CI_REGISTRY_IMAGE}:${PROJECT_TAG} /bin/bash -c 'npm test'
-
 push:
   stage: deploy
   only:
