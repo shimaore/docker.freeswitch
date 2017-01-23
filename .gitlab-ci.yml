@@ -15,8 +15,6 @@ push:
   - build-FS-9776
   script:
   - docker push ${CI_REGISTRY_IMAGE}:${PROJECT_TAG}
-  - docker tag ${CI_REGISTRY_IMAGE}:${PROJECT_TAG} ${PROJECT_TAG}
-  - docker push ${PROJECT_TAG}
 
 variables:
   PROJECT_TAG: "4.2.1"
