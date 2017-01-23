@@ -1,5 +1,6 @@
 FROM shimaore/debian:2.0.13
 MAINTAINER Stéphane Alnet <stephane@shimaore.net>
+ENV WITH_SOUNDS false
 
 COPY modules.conf.in /tmp/modules.conf.in
 COPY build.sh /tmp/build.sh
