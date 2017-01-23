@@ -9,10 +9,12 @@ build:
 
 push:
   stage: deploy
+  tags:
+  - shell
   only:
   - build-FS-9776.with-sounds
   script:
   - docker push ${CI_REGISTRY_IMAGE}:${PROJECT_TAG}
 
 variables:
-  PROJECT_TAG: "4.2.0"
+  PROJECT_TAG: "4.2.1"
