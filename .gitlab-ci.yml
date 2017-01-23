@@ -3,7 +3,7 @@ build:
   tags:
   - shell
   only:
-  - master
+  - build-FS-9776
   script:
   - docker build -t ${CI_REGISTRY_IMAGE}:${PROJECT_TAG} .
 
@@ -12,14 +12,14 @@ test:
   tags:
   - shell
   only:
-  - master
+  - build-FS-9776
   script:
   - docker run --rm ${CI_REGISTRY_IMAGE}:${PROJECT_TAG} /bin/bash -c 'npm test'
 
 push:
   stage: deploy
   only:
-  - master
+  - build-FS-9776
   script:
   - docker push ${CI_REGISTRY_IMAGE}:${PROJECT_TAG}
 
