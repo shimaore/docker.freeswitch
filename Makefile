@@ -1,4 +1,4 @@
-NAME := $(shell jq -r .docker_name package.json)
+NAME := $(shell jq -r .name package.json)-with-sounds
 TAG := $(shell jq -r .version package.json)
 
 image:
@@ -13,6 +13,6 @@ manual-tests:
 
 push: image
 	docker push ${REGISTRY}/${NAME}:${TAG}
-	docker push ${NAME}:${TAG}
+	# docker push ${NAME}:${TAG}
 	docker rmi ${REGISTRY}/${NAME}:${TAG}
-	docker rmi ${NAME}:${TAG}
+	# docker rmi ${NAME}:${TAG}
