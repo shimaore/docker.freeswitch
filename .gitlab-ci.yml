@@ -7,8 +7,9 @@ build:
   - apt-get update && apt-get install -y --no-install-recommends docker.io
   - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}
   script:
-  - docker build -t ${CI_REGISTRY_IMAGE}:${PROJECT_TAG} .
-  - docker push ${CI_REGISTRY_IMAGE}:${PROJECT_TAG}
+  - docker build -t ${CI_REGISTRY_IMAGE}:${PROJECT_TAG}${PROJECT_MODE} .
+  - docker push ${CI_REGISTRY_IMAGE}:${PROJECT_TAG}${PROJECT_MODE}
 
 variables:
-  PROJECT_TAG: "4.2.1-with-sounds"
+  PROJECT_TAG: "4.2.1"
+  PROJECT_MODE: "-with-sounds"
