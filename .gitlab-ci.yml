@@ -2,7 +2,7 @@ image: debian:unstable
 build:
   stage: build
   only:
-  - build-FS-9776
+  - tags
   before_script:
   - apt-get update && apt-get install -y --no-install-recommends docker.io
   - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}
@@ -11,5 +11,5 @@ build:
   - docker push ${CI_REGISTRY_IMAGE}:${PROJECT_TAG}${PROJECT_MODE}
 
 variables:
-  PROJECT_TAG: "4.2.1"
+  PROJECT_TAG: "4.2.2"
   PROJECT_MODE: ""
