@@ -1,19 +1,13 @@
+image: debian:unstable
 build:
   stage: build
-  tags:
-  - shell
   only:
   - build-FS-9776
+  before_script:
+  - apt-get update && apt-get install -y --no-install-recommends docker.io
+  - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}
   script:
   - docker build -t ${CI_REGISTRY_IMAGE}:${PROJECT_TAG} .
-
-push:
-  stage: deploy
-  tags:
-  - shell
-  only:
-  - build-FS-9776
-  script:
   - docker push ${CI_REGISTRY_IMAGE}:${PROJECT_TAG}
 
 variables:
