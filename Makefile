@@ -1,5 +1,5 @@
-NAME := $(shell jq -r .name package.json)-with-sounds
-TAG := $(shell jq -r .version package.json)
+NAME := $(shell jq -r .name package.json)
+TAG := $(shell jq -r .version package.json)-with-sounds
 
 image:
 	docker build -t ${NAME}:${TAG} .
