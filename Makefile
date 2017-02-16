@@ -1,4 +1,4 @@
-NAME := $(shell jq -r .docker_name package.json)
+NAME := $(shell jq -r .name package.json)
 TAG := $(shell jq -r .version package.json)
 
 image:
