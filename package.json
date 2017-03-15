@@ -1,6 +1,5 @@
 {
   "name": "docker.freeswitch",
-  "mode": "",
   "version": "4.2.2",
   "description": "Build FreeSwitch for CCNQ4.",
   "author": "Stéphane Alnet <stephane@shimaore.net> (http://stephane.shimaore.net/)",

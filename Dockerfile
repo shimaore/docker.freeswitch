@@ -1,6 +1,5 @@
-FROM shimaore/debian:2.0.15
+FROM shimaore/debian:2.0.16
 MAINTAINER Stéphane Alnet <stephane@shimaore.net>
-ENV WITH_SOUNDS false
 
 COPY modules.conf.in /tmp/modules.conf.in
 COPY build.sh /tmp/build.sh
@@ -58,6 +57,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # mod_sndfile
     libsndfile1-dev libflac-dev libogg-dev libvorbis-dev \
 
+# sounds
+    curl \
+    jq \
+    sox \
+
   && \
 
   useradd -m freeswitch && \
@@ -84,11 +88,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # build
     build-essential \
-    cpp-5 \
-    gcc-5 \
+    cpp-6 \
+    gcc-6 \
 
 # core
     yasm \
+
+# sounds
+    curl \
+    jq \
+    sox \
 
   && \
   apt-get autoremove -y && apt-get clean && \

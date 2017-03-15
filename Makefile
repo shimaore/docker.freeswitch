@@ -1,10 +1,11 @@
 NAME := $(shell jq -r .name package.json)
-MODE := $(shell jq -r .mode package.json)
 TAG := $(shell jq -r .version package.json)
 
 image:
-	docker build -t ${NAME}:${TAG}${MODE} .
-	docker tag ${NAME}:${TAG}${MODE} ${REGISTRY}/${NAME}:${TAG}${MODE}
+	docker build --build-arg=WITH_SOUNDS=false -t ${NAME}:${TAG} .
+	docker build --build-arg=WITH_SOUNDS=true  -t ${NAME}:${TAG}-with-sounds .
+	docker tag ${NAME}:${TAG} ${REGISTRY}/${NAME}:${TAG}
+	docker tag ${NAME}:${TAG}-with-sounds ${REGISTRY}/${NAME}:${TAG}-with-sounds
 
 tests:
 	echo 'Nothing to be done'
@@ -13,7 +14,11 @@ manual-tests:
 	cd test && for t in ./*.sh; do $$t; done
 
 push: image
-	docker push ${REGISTRY}/${NAME}:${TAG}${MODE}
-	docker push ${NAME}:${TAG}${MODE}
-	docker rmi ${REGISTRY}/${NAME}:${TAG}${MODE}
-	docker rmi ${NAME}:${TAG}${MODE}
+	docker push ${REGISTRY}/${NAME}:${TAG}
+	docker push ${REGISTRY}/${NAME}:${TAG}-with-sounds
+	docker push ${NAME}:${TAG}
+	docker push ${NAME}:${TAG}-with-sounds
+	docker rmi ${REGISTRY}/${NAME}:${TAG}
+	docker rmi ${REGISTRY}/${NAME}:${TAG}-with-sounds
+	docker rmi ${NAME}:${TAG}
+	docker rmi ${NAME}:${TAG}-with-sounds

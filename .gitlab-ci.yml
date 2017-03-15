@@ -5,9 +5,12 @@ build:
   before_script:
   - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}
   script:
-  - docker build -t ${CI_REGISTRY_IMAGE}:${PROJECT_TAG}${PROJECT_MODE} .
-  - docker push ${CI_REGISTRY_IMAGE}:${PROJECT_TAG}${PROJECT_MODE}
+  # No sounds
+  - docker build --build-arg=WITH_SOUNDS=false -t ${CI_REGISTRY_IMAGE}:${PROJECT_TAG} .
+  - docker push ${CI_REGISTRY_IMAGE}:${PROJECT_TAG}
+  # With sounds
+  - docker build --build-arg=WITH_SOUNDS=true  -t ${CI_REGISTRY_IMAGE}:${PROJECT_TAG}-with-sounds .
+  - docker push ${CI_REGISTRY_IMAGE}:${PROJECT_TAG}-with-sounds
 
 variables:
   PROJECT_TAG: "4.2.2"
-  PROJECT_MODE: ""
