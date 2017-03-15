@@ -1,4 +1,6 @@
 FROM shimaore/debian:2.0.16
+ARG WITH_SOUNDS
+ENV WITH_SOUNDS ${WITH_SOUNDS}
 MAINTAINER Stéphane Alnet <stephane@shimaore.net>
 
 COPY modules.conf.in /tmp/modules.conf.in
