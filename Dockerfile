@@ -1,4 +1,4 @@
-FROM shimaore/debian:2.0.16
+FROM shimaore/debian:2.0.18
 ARG WITH_SOUNDS
 ENV WITH_SOUNDS ${WITH_SOUNDS}
 MAINTAINER Stéphane Alnet <stephane@shimaore.net>
