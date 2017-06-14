@@ -58,6 +58,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libogg-dev libvorbis-dev libmp3lame-dev libshout3-dev libmpg123-dev \
 # mod_sndfile
     libsndfile1-dev libflac-dev libogg-dev libvorbis-dev \
+# mod_spandsp
+    libtiff5-dev
 
 # sounds
     curl \
