@@ -59,7 +59,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # mod_sndfile
     libsndfile1-dev libflac-dev libogg-dev libvorbis-dev \
 # mod_spandsp
-    libtiff5-dev
+    libtiff5-dev \
 
 # sounds
     curl \
