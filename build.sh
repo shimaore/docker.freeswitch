@@ -3,9 +3,9 @@ set -e
 
 echo 'Starting build.'
 cd /home/freeswitch
-git clone -b test-FS-9776 https://gitlab.k-net.fr/shimaore/freeswitch.git freeswitch.git
+git clone -b master https://gitlab.k-net.fr/shimaore/freeswitch.git freeswitch.git
 cd freeswitch.git
-git checkout aa76b89da5eaa884573569534728c0b2460dbad2
+git checkout b4ada1b849d526e3d808fd22626b7d618289c537
 cp /tmp/modules.conf.in build/modules.conf.in
 sh bootstrap.sh -j
 ./configure --prefix=/opt/freeswitch
