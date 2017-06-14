@@ -1,4 +1,4 @@
-FROM shimaore/debian:2.0.18
+FROM debian:jessie
 ARG WITH_SOUNDS
 ENV WITH_SOUNDS ${WITH_SOUNDS}
 MAINTAINER Stéphane Alnet <stephane@shimaore.net>
@@ -59,7 +59,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # mod_sndfile
     libsndfile1-dev libflac-dev libogg-dev libvorbis-dev \
 # mod_spandsp
-    libtiff5-dev
+    libtiff5-dev \
 
 # sounds
     curl \
@@ -92,8 +92,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # build
     build-essential \
-    cpp-6 \
-    gcc-6 \
+    cpp-4.9 \
+    gcc-4.9 \
 
 # core
     yasm \
