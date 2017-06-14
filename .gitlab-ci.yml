@@ -13,4 +13,4 @@ build:
   - docker push ${CI_REGISTRY_IMAGE}:${PROJECT_TAG}-with-sounds
 
 variables:
-  PROJECT_TAG: "4.2.6-o"
+  PROJECT_TAG: "4.3.0"
