@@ -1,7 +1,5 @@
 build:
   stage: build
-  only:
-  - tags
   before_script:
   - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}
   script:
@@ -13,4 +11,4 @@ build:
   - docker push ${CI_REGISTRY_IMAGE}:${PROJECT_TAG}-with-sounds
 
 variables:
-  PROJECT_TAG: "4.3.2"
+  PROJECT_TAG: "4.3.2-master"
