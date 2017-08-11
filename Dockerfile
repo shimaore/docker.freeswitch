@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:jessie-slim
 ARG WITH_SOUNDS
 ENV WITH_SOUNDS ${WITH_SOUNDS}
 MAINTAINER Stéphane Alnet <stephane@shimaore.net>
