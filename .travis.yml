@@ -11,6 +11,8 @@ script:
 
 after_success:
   - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
+  - test "${TRAVIS_BRANCH}" = master && docker push "shimaore/docker.freeswitch:latest"
+  - test "${TRAVIS_BRANCH}" = master && docker push "shimaore/docker.freeswitch:latest-with-sounds"
   - test -n "${TRAVIS_BRANCH}" && docker tag  "shimaore/docker.freeswitch:latest"             "shimaore/docker.freeswitch:${TRAVIS_BRANCH}"
   - test -n "${TRAVIS_BRANCH}" && docker tag  "shimaore/docker.freeswitch:latest-with-sounds" "shimaore/docker.freeswitch:${TRAVIS_BRANCH}-with-sounds"
   - test -n "${TRAVIS_BRANCH}" && docker push "shimaore/docker.freeswitch:${TRAVIS_BRANCH}"
