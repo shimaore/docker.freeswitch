@@ -5,19 +5,23 @@ services:
 
 script:
   # No sounds
-  - docker build --build-arg=WITH_SOUNDS=false -t "shimaore/docker.freeswitch:latest" .
+  - docker build --build-arg=WITH_SOUNDS=false -t "shimaore/docker.freeswitch:${TRAVIS_COMMIT}" .
   # With sounds
-  - docker build --build-arg=WITH_SOUNDS=true  -t "shimaore/docker.freeswitch:latest-with-sounds" .
+  - docker build --build-arg=WITH_SOUNDS=true  -t "shimaore/docker.freeswitch:${TRAVIS_COMMIT}-with-sounds" .
 
 after_success:
   - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
+  - test "${TRAVIS_BRANCH}" = master && docker tag "shimaore/docker.freeswitch:${TRAVIS_COMMIT}"              "shimaore/docker.freeswitch:latest"
+  - test "${TRAVIS_BRANCH}" = master && docker tag "shimaore/docker.freeswitch:${TRAVIS_COMMIT}-with-sounds"  "shimaore/docker.freeswitch:latest-with-sounds"
   - test "${TRAVIS_BRANCH}" = master && docker push "shimaore/docker.freeswitch:latest"
   - test "${TRAVIS_BRANCH}" = master && docker push "shimaore/docker.freeswitch:latest-with-sounds"
-  - test -n "${TRAVIS_BRANCH}" && docker tag  "shimaore/docker.freeswitch:latest"             "shimaore/docker.freeswitch:${TRAVIS_BRANCH}"
-  - test -n "${TRAVIS_BRANCH}" && docker tag  "shimaore/docker.freeswitch:latest-with-sounds" "shimaore/docker.freeswitch:${TRAVIS_BRANCH}-with-sounds"
-  - test -n "${TRAVIS_BRANCH}" && docker push "shimaore/docker.freeswitch:${TRAVIS_BRANCH}"
-  - test -n "${TRAVIS_BRANCH}" && docker push "shimaore/docker.freeswitch:${TRAVIS_BRANCH}-with-sounds"
-  - test -n "${TRAVIS_TAG}" && docker tag  "shimaore/docker.freeswitch:latest"             "shimaore/docker.freeswitch:${TRAVIS_TAG}"
-  - test -n "${TRAVIS_TAG}" && docker tag  "shimaore/docker.freeswitch:latest-with-sounds" "shimaore/docker.freeswitch:${TRAVIS_TAG}-with-sounds"
-  - test -n "${TRAVIS_TAG}" && docker push "shimaore/docker.freeswitch:${TRAVIS_TAG}"
-  - test -n "${TRAVIS_TAG}" && docker push "shimaore/docker.freeswitch:${TRAVIS_TAG}-with-sounds"
+
+  - test -n "${TRAVIS_BRANCH}"       && docker tag  "shimaore/docker.freeswitch:${TRAVIS_COMMIT}"             "shimaore/docker.freeswitch:${TRAVIS_BRANCH}"
+  - test -n "${TRAVIS_BRANCH}"       && docker tag  "shimaore/docker.freeswitch:${TRAVIS_COMMIT}-with-sounds" "shimaore/docker.freeswitch:${TRAVIS_BRANCH}-with-sounds"
+  - test -n "${TRAVIS_BRANCH}"       && docker push "shimaore/docker.freeswitch:${TRAVIS_BRANCH}"
+  - test -n "${TRAVIS_BRANCH}"       && docker push "shimaore/docker.freeswitch:${TRAVIS_BRANCH}-with-sounds"
+
+  - test -n "${TRAVIS_TAG}"          && docker tag  "shimaore/docker.freeswitch:${TRAVIS_COMMIT}"             "shimaore/docker.freeswitch:${TRAVIS_TAG}"
+  - test -n "${TRAVIS_TAG}"          && docker tag  "shimaore/docker.freeswitch:${TRAVIS_COMMIT}-with-sounds" "shimaore/docker.freeswitch:${TRAVIS_TAG}-with-sounds"
+  - test -n "${TRAVIS_TAG}"          && docker push "shimaore/docker.freeswitch:${TRAVIS_TAG}"
+  - test -n "${TRAVIS_TAG}"          && docker push "shimaore/docker.freeswitch:${TRAVIS_TAG}-with-sounds"
