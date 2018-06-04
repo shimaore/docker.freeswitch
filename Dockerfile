@@ -1,111 +1,92 @@
-FROM debian:jessie-slim
+FROM alpine:edge
 ARG WITH_SOUNDS
 ENV WITH_SOUNDS ${WITH_SOUNDS}
 MAINTAINER Stéphane Alnet <stephane@shimaore.net>
 
 COPY modules.conf.in /tmp/modules.conf.in
 COPY build.sh /tmp/build.sh
+COPY patches /tmp/patches
 
-# This version tries to be modelled after FreeSwitch's own
-#  debian/bootstrap.sh (section on `Build-Depends`)
-# especially by re-using the lists of `Build-Depends from
-#  debian/control-modules
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-
+RUN apk add --update --no-cache \
+  libedit \
+  libjpeg-turbo \
+  libressl2.7-libtls \
+  ncurses-libs \
+  pcre \
+  speex \
+  speexdsp \
+  sqlite-libs \
+  zlib \
+  opus \
+  libogg libvorbis lame-dev libshout mpg123-dev \
+  libsndfile flac libogg libvorbis \
+  tiff \
+  && \
+  apk add --update --no-cache --virtual .build-deps \
+  patch \
 # bootstrapping
   autoconf \
   automake \
   libtool \
-  libtool-bin \
-
 # clone
   ca-certificates \
   git \
-
 # build
-  build-essential \
+  build-base \
+  bash \
+  bsd-compat-headers \
+  coreutils \
+  util-linux-dev \
+  linux-headers \
 
 # core
-  libcurl4-openssl-dev \
+  curl-dev \
+  gnutls-dev \
+  ldns-dev \
   libedit-dev \
-  libjpeg-dev \
-  libncurses5-dev \
-  libpcre3-dev \
-  libspeexdsp-dev \
-  libsqlite3-dev \
-  libssl-dev \
-  uuid-dev \
-  zlib1g-dev \
-
+  libjpeg-turbo-dev \
+  ncurses-dev \
+  pcre-dev \
+  libressl-dev \
+  speex-dev \
+  speexdsp-dev \
+  sqlite-dev \
+  zlib-dev \
   yasm \
-
 # mod_av
     # libavformat-dev libswscale-dev \
 # mod_cv
     # libopencv-dev \
 # mod_mp4
-    libmp4v2-dev \
+    # libmp4v2-dev \ # NOT in Alpine
 # mod_ilbc
-    # libilbc-dev \  # NOT in Debian
+    # ilbc-dev \
 # mod_opus
-    libopus-dev \
+    opus-dev \
 # mod_silk
-    # libsilk-dev \  # NOT in Debian
+    # libsilk-dev \  # NOT in Alpine
 # mod_siren
-    # libg7221-dev \ # NOT in Debian
+    # libg7221-dev \ # NOT in Alpine
 # mod_shout
-    libogg-dev libvorbis-dev libmp3lame-dev libshout3-dev libmpg123-dev \
+    libogg-dev libvorbis-dev lame-dev libshout-dev mpg123-dev \
 # mod_sndfile
-    libsndfile1-dev libflac-dev libogg-dev libvorbis-dev \
+    libsndfile-dev flac-dev libogg-dev libvorbis-dev \
 # mod_spandsp
-    libtiff5-dev \
-
+    tiff-dev \
 # sounds
     curl \
     jq \
     sox \
-
   && \
-
-  useradd -m freeswitch && \
+  addgroup -S freeswitch && \
+  adduser -S -D -s /sbin/nologin -G freeswitch -g FreeSwitch freeswitch && \
   mkdir -p /opt/freeswitch && \
   chown -R freeswitch.freeswitch /opt/freeswitch && \
-
   chmod +x /tmp/build.sh && \
-  su -c /tmp/build.sh freeswitch && \
-
+  su -s /bin/sh -c /tmp/build.sh freeswitch && \
   rm -f /tmp/build.sh && \
-
 # Cleanup build dependencies
-  apt-get purge -y \
-
-# bootstrapping
-    autoconf \
-    automake \
-    libtool \
-    libtool-bin \
-
-# clone
-    ca-certificates \
-    git \
-
-# build
-    build-essential \
-    cpp-4.9 \
-    gcc-4.9 \
-
-# core
-    yasm \
-
-# sounds
-    curl \
-    jq \
-    sox \
-
-  && \
-  apt-get autoremove -y && apt-get clean && \
-  find /usr/share/doc /var/lib/apt/lists -type f -delete && \
+  apk del .build-deps && \
   echo Done
 
 USER freeswitch

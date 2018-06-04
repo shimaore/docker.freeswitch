@@ -1,14 +1,16 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
 echo 'Starting build.'
-cd /home/freeswitch
+cd $HOME
 git clone -b master https://gitlab.k-net.fr/shimaore/freeswitch.git freeswitch.git
 cd freeswitch.git
-git checkout 9127c41316b41f1bb00f72515de3f825595f6e09
+# git checkout 9127c41316b41f1bb00f72515de3f825595f6e09
+git checkout 3c7db639fd8def3c735fa9e8a8353b49189d1080
 cp /tmp/modules.conf.in build/modules.conf.in
 sh bootstrap.sh -j
 ./configure --prefix=/opt/freeswitch
+for f in /tmp/patches/*; do patch -p1 < $f; done
 make
 make install
 
