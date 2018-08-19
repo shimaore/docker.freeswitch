@@ -5,11 +5,14 @@ build:
   before_script:
   - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}
   script:
-  # No sounds
-  - docker build --build-arg=WITH_SOUNDS=false -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG} .
+  # Build
+  - docker build -t docker.freeswitch .
+  - docker build -t docker.freeswitch:with-sounds -f Dockerfile.with-sounds .
+  # Rename
+  - docker tag docker.freeswitch             ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
+  - docker tag docker.freeswitch:with-sounds ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}-with-sounds
+  # Push
   - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
-  # With sounds
-  - docker build --build-arg=WITH_SOUNDS=true  -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}-with-sounds .
   - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}-with-sounds
 
 intermediary:
@@ -18,6 +21,6 @@ intermediary:
   - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}
   script:
   # No sounds
-  - docker build --build-arg=WITH_SOUNDS=false -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA} .
+  - docker build -t docker.freeswitch .
   # With sounds
-  - docker build --build-arg=WITH_SOUNDS=true  -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}-with-sounds .
+  - docker build -t docker.freeswitch:with-sounds -f Dockerfile.with-sounds .

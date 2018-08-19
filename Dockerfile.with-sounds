@@ -1,0 +1,19 @@
+FROM docker.freeswitch
+MAINTAINER Stéphane Alnet <stephane@shimaore.net>
+
+USER root
+ENV SOUND_DIR=/opt/freeswitch/share/freeswitch/sounds \
+    WITH_SOUNDS=true
+RUN apk add --update --no-cache --virtual .build-deps  \
+  curl \
+  && mkdir -p ${SOUND_DIR}/  \
+  && curl http://files.freeswitch.org/releases/sounds/freeswitch-sounds-en-us-allison-8000-1.0.0.tar.gz |\
+     tar xzvf - -C ${SOUND_DIR}/ \
+  && curl https://gitlab.com/shimaore/fr-sounds/-/jobs/90410665/artifacts/raw/freeswitch-sounds-fr-fr-sibylle-8000-1.0.0.tar.gz |\
+     tar xzvf - -C ${SOUND_DIR}/ \
+  && \
+# Cleanup build dependencies
+  apk del .build-deps && \
+  echo Done
+
+USER freeswitch
