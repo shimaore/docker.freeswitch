@@ -1,0 +1,27 @@
+diff --git a/src/switch_rtp.c b/src/switch_rtp.c
+index afbd01a24e..dd7aff2706 100644
+--- a/src/switch_rtp.c
++++ b/src/switch_rtp.c
+@@ -48,6 +48,9 @@
+ #include <srtp_priv.h>
+ #include <switch_ssl.h>
+ #include <switch_jitterbuffer.h>
++#ifdef HAVE_OPENSSL
++#include <openssl/rand.h>
++#endif
+ 
+ //#define DEBUG_TS_ROLLOVER
+ //#define TS_ROLLOVER_START 4294951295
+diff --git a/src/switch_rtp.c b/src/switch_rtp.c
+index afbd01a24e..61e5d6d62a 100644
+--- a/src/switch_rtp.c
++++ b/src/switch_rtp.c
+@@ -3659,7 +3659,7 @@ SWITCH_DECLARE(switch_status_t) switch_rtp_add_dtls(switch_rtp_t *rtp_session, d
+ 
+ 	dtls->ca = switch_core_sprintf(rtp_session->pool, "%s%sca-bundle.crt", SWITCH_GLOBAL_dirs.certs_dir, SWITCH_PATH_SEPARATOR);
+ 
+-#if OPENSSL_VERSION_NUMBER >= 0x10100000
++#if OPENSSL_VERSION_NUMBER >= 0x10100000 && !LIBRESSL_VERSION_NUMBER
+ 	dtls->ssl_ctx = SSL_CTX_new((type & DTLS_TYPE_SERVER) ? DTLS_server_method() : DTLS_client_method());
+ #else
+ 	dtls->ssl_ctx = SSL_CTX_new((type & DTLS_TYPE_SERVER) ? DTLSv1_server_method() : DTLSv1_client_method());
