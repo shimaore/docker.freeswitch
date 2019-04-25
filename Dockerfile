@@ -6,9 +6,11 @@ COPY build.sh /tmp/build.sh
 COPY patches /tmp/patches
 
 RUN apk add --update --no-cache \
+  libcurl \
   libedit \
   libjpeg-turbo \
   libressl2.7-libtls \
+  libuuid \
   ncurses-libs \
   pcre \
   speex \
