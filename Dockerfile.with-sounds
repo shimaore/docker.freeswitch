@@ -9,7 +9,7 @@ RUN apk add --update --no-cache --virtual .build-deps  \
   && mkdir -p ${SOUND_DIR}/  \
   && curl http://files.freeswitch.org/releases/sounds/freeswitch-sounds-en-us-allison-8000-1.0.0.tar.gz |\
      tar xzvf - -C ${SOUND_DIR}/ \
-  && curl https://gitlab.com/shimaore/fr-sounds/-/jobs/90410665/artifacts/raw/freeswitch-sounds-fr-fr-sibylle-8000-1.0.0.tar.gz |\
+  && curl https://gitlab.com/shimaore/fr-sounds/-/jobs/202487853/artifacts/raw/freeswitch-sounds-fr-fr-sibylle-8000-1.0.0.tar.gz |\
      tar xzvf - -C ${SOUND_DIR}/ \
   && \
 # Cleanup build dependencies
