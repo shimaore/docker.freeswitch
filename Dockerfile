@@ -86,6 +86,7 @@ RUN apk add --update --no-cache \
   rm -f /tmp/build.sh && \
 # Cleanup build dependencies
   apk del .build-deps && \
+  rm -rf /tmp/patches && \
   echo Done
 
 USER freeswitch

@@ -8,8 +8,8 @@ cd freeswitch.git
 git checkout a5cecbfc2a5e0ea2d3f45489f2681a67e32ce955
 cp /tmp/modules.conf.in build/modules.conf.in
 sh bootstrap.sh -j
-./configure --prefix=/opt/freeswitch
 for f in /tmp/patches/*; do patch -p1 < $f; done
+./configure --prefix=/opt/freeswitch
 make
 make install
 
