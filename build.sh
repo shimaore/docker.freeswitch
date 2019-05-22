@@ -7,8 +7,8 @@ git clone -b master https://gitlab.k-net.fr/ccnq/freeswitch-original.git freeswi
 cd freeswitch.git
 git checkout a5cecbfc2a5e0ea2d3f45489f2681a67e32ce955
 cp /tmp/modules.conf.in build/modules.conf.in
-sh bootstrap.sh -j
 for f in /tmp/patches/*; do patch -p1 < $f; done
+sh bootstrap.sh -j
 ./configure --prefix=/opt/freeswitch
 make
 make install
