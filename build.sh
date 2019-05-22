@@ -3,7 +3,7 @@ set -e
 
 echo 'Starting build.'
 cd $HOME
-git clone -b master https://gitlab.k-net.fr/shimaore/freeswitch.git freeswitch.git
+git clone -b master https://gitlab.k-net.fr/ccnq/freeswitch-original.git freeswitch.git
 cd freeswitch.git
 git checkout a5cecbfc2a5e0ea2d3f45489f2681a67e32ce955
 cp /tmp/modules.conf.in build/modules.conf.in
