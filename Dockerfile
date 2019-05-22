@@ -38,7 +38,6 @@ RUN apk add --update --no-cache \
   coreutils \
   util-linux-dev \
   linux-headers \
-
 # core
   curl-dev \
   gnutls-dev \
