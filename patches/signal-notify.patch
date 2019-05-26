@@ -1,5 +1,5 @@
 diff --git a/src/switch.c b/src/switch.c
-index 636d4c3543..9cd8c5977e 100644
+index 636d4c3543..6457e9e032 100644
 --- a/src/switch.c
 +++ b/src/switch.c
 @@ -86,6 +86,7 @@ static void handle_SIGILL(int sig)
@@ -10,3 +10,12 @@ index 636d4c3543..9cd8c5977e 100644
  	switch_core_session_ctl(SCSC_SHUTDOWN, &arg);
  	return;
  }
+@@ -1064,7 +1065,7 @@ int main(int argc, char *argv[])
+ 	}
+ #endif
+ #endif
+-	signal(SIGILL, handle_SIGILL);
++	// signal(SIGILL, handle_SIGILL);
+ 	signal(SIGTERM, handle_SIGILL);
+ #ifndef WIN32
+ 	if (do_wait) {
