@@ -1,0 +1,124 @@
+FROM debian:testing-slim
+MAINTAINER Stéphane Alnet <stephane@shimaore.net>
+
+COPY modules.conf.in /tmp/modules.conf.in
+COPY build.sh /tmp/build.sh
+COPY patches.debian /tmp/patches
+
+RUN apt update && apt install -y --no-install-recommends \
+  libcurl4 \
+  libedit2 \
+  libjpeg62-turbo \
+  libldns2 \
+  libssl1.1 \
+  libuuid1 \
+  libncurses6 \
+  libpcre3 \
+  libspeex1 \
+  libspeexdsp1 \
+  libsqlite3-0 \
+  zlib1g \
+  libopus0 \
+  libogg0 libvorbis0a libvorbisenc2 libvorbisfile3 \
+  libmp3lame0 libshout3 libmpg123-0 libout123-0 \
+  libsndfile1 libflac8  \
+  libtiff5 \
+  && \
+  apt install -y --no-install-recommends \
+  patch \
+# bootstrapping
+  autoconf \
+  automake \
+  libtool \
+  libtool-bin \
+# clone
+  ca-certificates \
+  git \
+# build
+  build-essential \
+  bash \
+  coreutils \
+  util-linux \
+  linux-headers-amd64 \
+# core
+  libcurl4-openssl-dev \
+  gnutls-dev \
+  libldns-dev \
+  libedit-dev \
+  libjpeg62-turbo-dev \
+  libncurses-dev \
+  libpcre3-dev \
+  libssl-dev \
+  libspeex-dev \
+  libspeexdsp-dev \
+  libsqlite3-dev \
+  uuid-dev \
+  zlib1g-dev \
+  yasm \
+# mod_opus
+    libopus-dev \
+# mod_shout
+    libogg-dev libvorbis-dev \
+    libmp3lame-dev libshout3-dev libmpg123-dev \
+# mod_sndfile
+    libsndfile1-dev libflac-dev libogg-dev libvorbis-dev \
+# mod_spandsp
+    libtiff-dev \
+# sounds
+    curl \
+    jq \
+    sox \
+  && \
+  addgroup --system freeswitch && \
+  adduser --system --disabled-password --shell /sbin/nologin --ingroup freeswitch --gecos FreeSwitch freeswitch && \
+  mkdir -p /opt/freeswitch && \
+  chown -R freeswitch.freeswitch /opt/freeswitch && \
+  chmod +x /tmp/build.sh && \
+  su -s /bin/sh -c /tmp/build.sh && \
+  rm -f /tmp/build.sh && \
+# Cleanup build dependencies
+  apt purge -y \
+  patch \
+# bootstrapping
+  autoconf \
+  automake \
+  libtool \
+# clone
+  ca-certificates \
+  git \
+# build
+  build-essential \
+  linux-headers \
+# core
+  libcurl4-openssl-dev \
+  gnutls-dev \
+  libldns-dev \
+  libedit-dev \
+  libjpeg62-turbo-dev \
+  libncurses-dev \
+  libpcre3-dev \
+  libssl-dev \
+  libspeex-dev \
+  libspeexdsp-dev \
+  libsqlite3-dev \
+  uuid-dev \
+  zlib1g-dev \
+  yasm \
+# mod_opus
+    libopus-dev \
+# mod_shout
+    libogg-dev libvorbis-dev \
+    libmp3lame-dev libshout3-dev libmpg123-dev \
+# mod_sndfile
+    libsndfile1-dev libflac-dev libogg-dev libvorbis-dev \
+# mod_spandsp
+    libtiff-dev \
+# sounds
+    curl \
+    jq \
+    sox \
+  && apt autoremove -y \
+  && rm -rf /tmp/patches \
+  && echo Done
+
+USER freeswitch
