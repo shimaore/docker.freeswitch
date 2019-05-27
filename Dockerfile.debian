@@ -72,10 +72,10 @@ RUN apt update && apt install -y --no-install-recommends \
   addgroup --system freeswitch && \
   adduser --system --disabled-password --shell /sbin/nologin --ingroup freeswitch --gecos FreeSwitch freeswitch && \
   mkdir -p /opt/freeswitch && \
-  chown -R freeswitch.freeswitch /opt/freeswitch && \
   chmod +x /tmp/build.sh && \
   su -s /bin/sh -c /tmp/build.sh && \
   rm -f /tmp/build.sh && \
+  chown -R freeswitch.freeswitch /opt/freeswitch/var && \
 # Cleanup build dependencies
   apt purge -y \
   patch \

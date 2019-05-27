@@ -80,10 +80,10 @@ RUN apk add --update --no-cache \
   addgroup -S freeswitch && \
   adduser -S -D -s /sbin/nologin -G freeswitch -g FreeSwitch freeswitch && \
   mkdir -p /opt/freeswitch && \
-  chown -R freeswitch.freeswitch /opt/freeswitch && \
   chmod +x /tmp/build.sh && \
   su -s /bin/sh -c /tmp/build.sh && \
   rm -f /tmp/build.sh && \
+  chown -R freeswitch.freeswitch /opt/freeswitch/var && \
 # Cleanup build dependencies
   apk del .build-deps && \
   rm -rf /tmp/patches && \
