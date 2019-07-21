@@ -6,8 +6,8 @@ build:
   - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}
   script:
   # Build
-  - docker build -t docker.freeswitch -f Dockerfile.debian .
-  - docker build -t docker.freeswitch:with-sounds -f Dockerfile.debian.with-sounds .
+  - docker build -t docker.freeswitch -f Dockerfile.debian --no-cache .
+  - docker build -t docker.freeswitch:with-sounds -f Dockerfile.debian.with-sounds --no-cache .
   # Rename
   - docker tag docker.freeswitch             ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
   - docker tag docker.freeswitch:with-sounds ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}-with-sounds
