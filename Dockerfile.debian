@@ -1,4 +1,4 @@
-FROM debian:testing-slim
+FROM debian:bullseye-slim
 MAINTAINER Stéphane Alnet <stephane@shimaore.net>
 
 COPY modules.conf.in /tmp/modules.conf.in
