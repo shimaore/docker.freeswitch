@@ -1,6 +1,6 @@
 {
   "name": "docker.freeswitch",
-  "version": "5.1.5",
+  "version": "5.1.6",
   "description": "Build FreeSwitch for CCNQ4.",
   "author": "Stéphane Alnet <stephane@shimaore.net> (http://stephane.shimaore.net/)",
   "license": "Unlicense (http://unlicense.org/)",
